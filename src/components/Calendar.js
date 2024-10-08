@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import styled from "styled-components";
 import useEvents from "../hooks/useEvents";
@@ -21,6 +22,13 @@ const CalendarContainer = styled.div`
 
   @media (max-width: 768px) {
     padding: 10px;
+    border-radius: 8px;
+  }
+
+  @media (max-width: 500px) {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
   }
 `;
 
@@ -42,9 +50,17 @@ const Header = styled.div`
   align-items: center;
   margin-bottom: 20px;
 
+  
+  
+
   h2 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     color: ${({ themeMode }) => (themeMode === "dark" ? "white" : "#333")};
+    font-family: 'Rowdies', cursive;
+   
+    @media (max-width: 500px) {
+      font-size: 1.2rem; 
+    }
   }
 
   select {
@@ -52,6 +68,19 @@ const Header = styled.div`
     border-radius: 4px;
     border: 1px solid #ccc;
     cursor: pointer;
+
+    @media (max-width: 500px) {
+      font-size: 0.8rem; // Smaller font size for phones
+    }
+  }
+`;
+
+const CenteredHeading = styled.div`
+  flex: 1; 
+  text-align: center; 
+
+  @media (max-width: 500px) {
+    margin-bottom: 10px; // Space below heading for smaller screens
   }
 `;
 
@@ -59,9 +88,11 @@ const Button = styled.button`
   padding: 8px 12px;
   margin: 5px;
   border: none;
-  background-color: #007bff;
-  color: #fff;
+  border: 2px solid #FFD700; 
+  background-color: #FFFF00;
+  color: black;
   border-radius: 4px;
+
   cursor: pointer;
   transition: background-color 0.3s;
 
@@ -76,11 +107,12 @@ const Grid = styled.div`
   grid-gap: 10px;
 
   @media (max-width: 768px) {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr); 
   }
 
   @media (max-width: 500px) {
     grid-template-columns: repeat(2, 1fr);
+    grid-gap: 5px; 
   }
 `;
 
@@ -120,13 +152,18 @@ const EventBadge = styled.span`
   display: block;
   background-color: ${({ color }) => color || "#28a745"};
   color: #fff;
-  padding: 4px 6px;
+  padding: 7px 6px;
   border-radius: 3px;
-  font-size: 0.75rem;
+  font-size: 0.90rem;
   margin-top: 4px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-family: 'Roboto', sans-serif;
+  a {
+    text-decoration: none; /* Remove underline */
+  }
+
 `;
 
 const ExtraEvents = styled.div`
@@ -204,7 +241,7 @@ const Calendar = ({ themeMode }) => {
         >
           <span>{day}</span>
           {visibleEvents.map((event) => (
-            <Link to={`/event/${event.id}`} key={event.id}>
+            <Link to={`/event/${event.id}`} key={event.id} style={{ textDecoration: 'none' }}>
               <EventBadge color={getEventColor(event.category)}>
                 {event.title}
               </EventBadge>
@@ -282,10 +319,12 @@ const Calendar = ({ themeMode }) => {
   return (
     <CalendarContainer themeMode={themeMode}>
       <Header themeMode={themeMode}>
-        <Button onClick={prevMonth}>Previous</Button>
+        <Button className="button" onClick={prevMonth}>Previous</Button>
+        <CenteredHeading>
         <h2>
           {months[currentMonth]} {currentYear}
         </h2>
+        </CenteredHeading>
         <select value={selectedCategory} onChange={handleCategoryChange}>
           <option value="All">All</option>
           <option value="Work">Work</option>
@@ -293,7 +332,7 @@ const Calendar = ({ themeMode }) => {
           <option value="Others">Others</option>
         </select>
 
-        <Button onClick={nextMonth}>Next</Button>
+        <Button className="button" onClick={nextMonth}>Next</Button>
       </Header>
       <Grid>{generateCalendar()}</Grid>
       <FloatingButton onClick={() => setShowModal(true)}>
@@ -301,7 +340,7 @@ const Calendar = ({ themeMode }) => {
       </FloatingButton>
       {showModal && (
         <Modal onClose={closeModal}>
-          <EventForm date={selectedDate} onSubmit={handleAddEvent} />
+          <EventForm date={selectedDate} onSubmit={handleAddEvent} onClose={closeModal}/>
         </Modal>
       )}
     </CalendarContainer>
