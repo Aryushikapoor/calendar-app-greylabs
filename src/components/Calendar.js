@@ -139,7 +139,7 @@ const Day = styled.div`
   ${(props) =>
     props.hasEvent &&
     `
-      background-color: #007bff;
+ 
       color: white;
     `}
 `;
