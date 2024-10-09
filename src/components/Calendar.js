@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import styled from "styled-components";
 import useEvents from "../hooks/useEvents";
@@ -50,16 +49,13 @@ const Header = styled.div`
   align-items: center;
   margin-bottom: 20px;
 
-  
-  
-
   h2 {
     font-size: 1.6rem;
     color: ${({ themeMode }) => (themeMode === "dark" ? "white" : "#333")};
-    font-family: 'Rowdies', cursive;
-   
+    font-family: "Rowdies", cursive;
+
     @media (max-width: 500px) {
-      font-size: 1.2rem; 
+      font-size: 1.2rem;
     }
   }
 
@@ -76,8 +72,8 @@ const Header = styled.div`
 `;
 
 const CenteredHeading = styled.div`
-  flex: 1; 
-  text-align: center; 
+  flex: 1;
+  text-align: center;
 
   @media (max-width: 500px) {
     margin-bottom: 10px; // Space below heading for smaller screens
@@ -88,8 +84,8 @@ const Button = styled.button`
   padding: 8px 12px;
   margin: 5px;
   border: none;
-  border: 2px solid #FFD700; 
-  background-color: #FFFF00;
+  border: 2px solid #ffd700;
+  background-color: #ffff00;
   color: black;
   border-radius: 4px;
 
@@ -107,12 +103,12 @@ const Grid = styled.div`
   grid-gap: 10px;
 
   @media (max-width: 768px) {
-    grid-template-columns: repeat(4, 1fr); 
+    grid-template-columns: repeat(4, 1fr);
   }
 
   @media (max-width: 500px) {
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 5px; 
+    grid-gap: 5px;
   }
 `;
 
@@ -154,16 +150,15 @@ const EventBadge = styled.span`
   color: #fff;
   padding: 7px 6px;
   border-radius: 3px;
-  font-size: 0.90rem;
+  font-size: 0.9rem;
   margin-top: 4px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   a {
     text-decoration: none; /* Remove underline */
   }
-
 `;
 
 const ExtraEvents = styled.div`
@@ -241,7 +236,11 @@ const Calendar = ({ themeMode }) => {
         >
           <span>{day}</span>
           {visibleEvents.map((event) => (
-            <Link to={`/event/${event.id}`} key={event.id} style={{ textDecoration: 'none' }}>
+            <Link
+              to={`/event/${event.id}`}
+              key={event.id}
+              style={{ textDecoration: "none" }}
+            >
               <EventBadge color={getEventColor(event.category)}>
                 {event.title}
               </EventBadge>
@@ -301,12 +300,6 @@ const Calendar = ({ themeMode }) => {
     setSelectedDate(null);
   };
 
-  const openEventForm = (event) => {
-    console.log(event); // Add this to debug
-    setSelectedDate(event.date);
-    setShowModal(true);
-  };
-
   const handleAddEvent = (event) => {
     addEvent(event);
     closeModal();
@@ -319,11 +312,13 @@ const Calendar = ({ themeMode }) => {
   return (
     <CalendarContainer themeMode={themeMode}>
       <Header themeMode={themeMode}>
-        <Button className="button" onClick={prevMonth}>Previous</Button>
+        <Button className="button" onClick={prevMonth}>
+          Previous
+        </Button>
         <CenteredHeading>
-        <h2>
-          {months[currentMonth]} {currentYear}
-        </h2>
+          <h2>
+            {months[currentMonth]} {currentYear}
+          </h2>
         </CenteredHeading>
         <select value={selectedCategory} onChange={handleCategoryChange}>
           <option value="All">All</option>
@@ -332,7 +327,9 @@ const Calendar = ({ themeMode }) => {
           <option value="Others">Others</option>
         </select>
 
-        <Button className="button" onClick={nextMonth}>Next</Button>
+        <Button className="button" onClick={nextMonth}>
+          Next
+        </Button>
       </Header>
       <Grid>{generateCalendar()}</Grid>
       <FloatingButton onClick={() => setShowModal(true)}>
@@ -340,7 +337,11 @@ const Calendar = ({ themeMode }) => {
       </FloatingButton>
       {showModal && (
         <Modal onClose={closeModal}>
-          <EventForm date={selectedDate} onSubmit={handleAddEvent} onClose={closeModal}/>
+          <EventForm
+            selectedDate={selectedDate}
+            onClose={closeModal}
+            onSubmit={handleAddEvent}
+          />
         </Modal>
       )}
     </CalendarContainer>

@@ -43,7 +43,7 @@ const EventForm = ({ selectedDate, onClose, existingEvent }) => {
   const { addEvent, editEvent } = useEvents();
 
   const [title, setTitle] = useState(existingEvent ? existingEvent.title : "");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(selectedDate || new Date());
   const [hour, setHour] = useState(existingEvent ? existingEvent.hour : "12");
   const [minute, setMinute] = useState(
     existingEvent ? existingEvent.minute : "00"
