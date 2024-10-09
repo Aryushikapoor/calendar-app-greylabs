@@ -6,7 +6,6 @@ import Modal from "./Modal";
 import EventForm from "./EventForm";
 import AddIcon from "@mui/icons-material/Add";
 import Fab from "@mui/material/Fab";
-import header from "./Header";
 
 const CalendarContainer = styled.div`
   max-width: 1000px;
@@ -32,14 +31,12 @@ const CalendarContainer = styled.div`
 `;
 
 const FloatingButton = styled(Fab)`
-  align-items: end;
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #007bff;
-  color: white;
+  top: 5px;
+  left: 5px;
+  background-color: #ffff00 !important; // Make sure to use !important to override MUI default styles
   &:hover {
-    background-color: #0056b3;
+    background-color: #ffcc00 !important;
   }
 `;
 
@@ -84,7 +81,7 @@ const Button = styled.button`
   padding: 8px 12px;
   margin: 5px;
   border: none;
-  border: 2px solid #ffd700;
+  border: 1px solid #ffd700;
   background-color: #ffff00;
   color: black;
   border-radius: 4px;
@@ -93,7 +90,7 @@ const Button = styled.button`
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #ffcc00;
   }
 `;
 
@@ -103,11 +100,19 @@ const Grid = styled.div`
   grid-gap: 10px;
 
   @media (max-width: 768px) {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
   }
 
   @media (max-width: 500px) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 5px;
+  }
+  @media (max-width: 400px) {
     grid-template-columns: repeat(2, 1fr);
+    grid-gap: 5px;
+  }
+  @media (max-width: 200px) {
+    grid-template-columns: repeat(1, 1fr);
     grid-gap: 5px;
   }
 `;
@@ -163,7 +168,7 @@ const EventBadge = styled.span`
 
 const ExtraEvents = styled.div`
   font-size: 0.75rem;
-  color: white;
+  color: #1b72e8;
   background-color: rgba(255, 255, 255, 0.2);
   padding: 2px 6px;
   border-radius: 3px;
@@ -258,11 +263,11 @@ const Calendar = ({ themeMode }) => {
   const getEventColor = (category) => {
     switch (category) {
       case "Work":
-        return "#007bff"; // Blue
+        return "#039be5";
       case "Personal":
-        return "#28a745"; // Green
+        return "#32b579";
       case "Others":
-        return "#ffc107"; // Yellow
+        return "#4284f3";
       default:
         return "#17a2b8"; // Teal
     }
