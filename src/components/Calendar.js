@@ -35,7 +35,7 @@ const FloatingButton = styled(Fab)`
   position: fixed;
   top: 5px;
   left: 5px;
-  background-color: #ffff00 !important; // Make sure to use !important to override MUI default styles
+  background-color: #ffff00 !important;
   &:hover {
     background-color: #ffcc00 !important;
   }
@@ -64,7 +64,7 @@ const Header = styled.div`
     cursor: pointer;
 
     @media (max-width: 500px) {
-      font-size: 0.8rem; // Smaller font size for phones
+      font-size: 0.8rem;
     }
   }
 `;
@@ -74,7 +74,7 @@ const CenteredHeading = styled.div`
   text-align: center;
 
   @media (max-width: 500px) {
-    margin-bottom: 10px; // Space below heading for smaller screens
+    margin-bottom: 10px;
   }
 `;
 
@@ -182,9 +182,9 @@ const Calendar = ({ themeMode }) => {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [showModal, setShowModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState("All"); // State for selected category
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const { events, loading, error, addEvent } = useEvents(); // Ensure addEvent is destructured
+  const { events, loading, error, addEvent } = useEvents();
 
   const months = [
     "January",
@@ -209,26 +209,24 @@ const Calendar = ({ themeMode }) => {
     const totalDays = daysInMonth(currentMonth, currentYear);
     const firstDay = firstDayOfMonth(currentMonth, currentYear);
 
-    // Add empty days for the first week
     for (let i = 0; i < firstDay; i++) {
       days.push(<Day key={`empty-${i}`} isCurrentMonth={false}></Day>);
     }
 
-    // Add actual days
     for (let day = 1; day <= totalDays; day++) {
       const date = new Date(currentYear, currentMonth, day);
       const dayEvents = events.filter((event) => {
         const eventDate = new Date(event.date);
         const isSameDate = eventDate.toDateString() === date.toDateString();
         const isSelectedCategory =
-          selectedCategory === "All" || event.category === selectedCategory; // Check if the event category matches the selected category
+          selectedCategory === "All" || event.category === selectedCategory;
         return isSameDate && isSelectedCategory;
       });
 
       const sortedDayEvents = dayEvents.sort(
         (a, b) => new Date(a.date) - new Date(b.date)
       );
-      const visibleEvents = sortedDayEvents.slice(0, 2); // Show only the first two events
+      const visibleEvents = sortedDayEvents.slice(0, 2);
       const additionalEventCount =
         sortedDayEvents.length - visibleEvents.length;
 
@@ -270,7 +268,7 @@ const Calendar = ({ themeMode }) => {
       case "Others":
         return "#4284f3";
       default:
-        return "#17a2b8"; // Teal
+        return "#17a2b8";
     }
   };
 
@@ -293,10 +291,10 @@ const Calendar = ({ themeMode }) => {
   };
 
   const handleDayClick = (date) => {
-    console.log("Clicked Date: ", date); // Check the clicked date
+    console.log("Clicked Date: ", date);
     const normalizedDate = new Date(date);
     normalizedDate.setHours(0, 0, 0, 0);
-    console.log("Normalized Date: ", normalizedDate); // Check the normalized date
+    console.log("Normalized Date: ", normalizedDate);
     setSelectedDate(normalizedDate);
     setShowModal(true);
   };
@@ -337,11 +335,7 @@ const Calendar = ({ themeMode }) => {
         </Button>
       </Header>
 
-      {loading ? (
-        <Loader /> // Show loader when fetching data
-      ) : (
-        <Grid>{generateCalendar()}</Grid> // Show calendar when not loading
-      )}
+      {loading ? <Loader /> : <Grid>{generateCalendar()}</Grid>}
 
       <FloatingButton onClick={() => setShowModal(true)}>
         <AddIcon />

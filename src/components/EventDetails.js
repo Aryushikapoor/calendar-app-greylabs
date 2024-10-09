@@ -51,7 +51,7 @@ const EventDetails = () => {
   const { events, deleteEvent } = useEvents();
   const navigate = useNavigate();
   const [showEditModal, setShowEditModal] = useState(false);
-  const [currentEvent, setCurrentEvent] = useState(null); // To track the event being edited
+  const [currentEvent, setCurrentEvent] = useState(null);
 
   const event = events.find((event) => event.id === parseInt(id));
 
@@ -59,25 +59,23 @@ const EventDetails = () => {
     return <p>Event not found!</p>;
   }
 
-  // Get the date of the selected event
   const selectedDate = new Date(event.date).toDateString();
 
-  // Filter events that match the selected date, excluding the main event
   const eventsForTheDay = events.filter((evt) => {
     const eventDate = new Date(evt.date).toDateString();
-    return eventDate === selectedDate && evt.id !== event.id; // Exclude the main event
+    return eventDate === selectedDate && evt.id !== event.id;
   });
 
   const handleDelete = (eventId) => {
     deleteEvent(eventId);
     if (eventId === event.id) {
-      navigate("/"); // Navigate back to home after deleting if the main event is deleted
+      navigate("/");
     }
   };
 
   const handleEditClick = (evt) => {
-    setCurrentEvent(evt); // Set the current event to be edited
-    setShowEditModal(true); // Show the edit modal
+    setCurrentEvent(evt);
+    setShowEditModal(true);
   };
 
   return (
@@ -103,7 +101,7 @@ const EventDetails = () => {
             existingEvent={currentEvent}
             onClose={() => {
               setShowEditModal(false);
-              setCurrentEvent(null); // Clear the current event after closing the modal
+              setCurrentEvent(null);
             }}
           />
         </Modal>
