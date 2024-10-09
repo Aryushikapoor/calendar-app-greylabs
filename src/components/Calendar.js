@@ -146,7 +146,8 @@ const Day = styled.div`
     props.hasEvent &&
     `
  
-      color: black;
+       background-color: ${({ themeMode }) =>
+         themeMode === "dark" ? "white" : "black"};
     `}
 `;
 
@@ -347,6 +348,7 @@ const Calendar = ({ themeMode }) => {
             selectedDate={selectedDate}
             onClose={closeModal}
             onSubmit={handleAddEvent}
+            themeMode={themeMode}
           />
         </Modal>
       )}

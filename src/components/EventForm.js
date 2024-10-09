@@ -9,6 +9,7 @@ const Form = styled.form`
 
 const Label = styled.label`
   margin: 10px 0 5px;
+  color: black;
 `;
 
 const Input = styled.input`
@@ -39,7 +40,7 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const EventForm = ({ selectedDate, onClose, existingEvent }) => {
+const EventForm = ({ selectedDate, onClose, existingEvent, themeMode }) => {
   const { addEvent, editEvent } = useEvents();
 
   const [title, setTitle] = useState(existingEvent ? existingEvent.title : "");

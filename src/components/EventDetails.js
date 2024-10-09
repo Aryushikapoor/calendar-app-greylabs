@@ -12,6 +12,11 @@ const DetailsContainer = styled.div`
   border: 1px solid #ccc;
   border-radius: 10px;
   background-color: #fff;
+
+  h2,
+  p {
+    color: black; /* Set header and paragraph text to black */
+  }
 `;
 
 const Button = styled.button`
@@ -19,7 +24,7 @@ const Button = styled.button`
   margin-right: 10px;
   border: none;
   background-color: #007bff;
-  color: white;
+  color: white; /* Keep button text color white */
   cursor: pointer;
   border-radius: 4px;
 
@@ -35,6 +40,7 @@ const EventList = styled.div`
 
   h3 {
     margin-bottom: 10px;
+    color: black; /* Set section header color to black */
   }
 `;
 
@@ -44,6 +50,11 @@ const EventItem = styled.div`
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
+
+  h4,
+  p {
+    color: black; /* Set item title and description color to black */
+  }
 `;
 
 const EventDetails = () => {
@@ -56,7 +67,7 @@ const EventDetails = () => {
   const event = events.find((event) => event.id === parseInt(id));
 
   if (!event) {
-    return <p>Event not found!</p>;
+    return <p style={{ color: "black" }}>Event not found!</p>; // Set color to black for not found message
   }
 
   const selectedDate = new Date(event.date).toDateString();
