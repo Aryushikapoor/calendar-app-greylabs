@@ -1,10 +1,9 @@
 // src/components/Header.js
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import Filter from "./Filter";
 import { ReactComponent as SunIcon } from "../assets/headers/sun.svg";
 import { ReactComponent as MoonIcon } from "../assets/headers/moon.svg";
-// import { IconButton } from "./Button";
+
 const IconButton = styled.button`
   background: transparent;
   border: none;
@@ -14,53 +13,46 @@ const IconButton = styled.button`
   justify-content: center;
 
   svg {
-    width: 24px;
-    height: 24px;
+    width: 30px; /* Increased size */
+    height: 30px; /* Increased size */
   }
 
   &:focus {
     outline: none;
   }
 `;
+
 const HeaderContainer = styled.header`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Keep spacing between items */
   align-items: center;
   padding: 10px 20px;
-  background-color: #f0f0f0;
+  background-color: ${({ themeMode }) =>
+    themeMode === "light"
+      ? "#f0f0f0"
+      : "#333"}; /* Change background color based on theme */
+  color: ${({ themeMode }) =>
+    themeMode === "light"
+      ? "#333"
+      : "#fff"}; /* Change text color based on theme */
 `;
 
 const Title = styled.h1`
   margin: 0;
   font-size: 1.5rem;
-  color: #333;
+  flex-grow: 1; /* Allow the title to grow and take available space */
+  text-align: center; /* Center the title */
 `;
 
-const Select = styled.select`
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  cursor: pointer;
-`;
-
-const Header = ({ themeMode, selectedCategory, onFilterChange }) => {
-  const [theme, setTheme] = useState("light");
-  const categories = ["All", "Work", "Personal", "Others"];
-
-  useEffect(() => {
-    document.body.className = theme;
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
-  };
+const Header = ({ themeMode, onToggleTheme }) => {
   return (
-    <HeaderContainer>
+    <HeaderContainer themeMode={themeMode}>
       <Title>Calendar</Title>
-      <IconButton onClick={toggleTheme}>
-        {theme === "light" ? <MoonIcon /> : <SunIcon />}
+      <div style={{ width: "40px" }} />{" "}
+      {/* Empty div to maintain spacing for the icon */}
+      <IconButton onClick={onToggleTheme}>
+        {themeMode === "light" ? <MoonIcon /> : <SunIcon />}
       </IconButton>
-      {/* <Filter /> */}
     </HeaderContainer>
   );
 };
