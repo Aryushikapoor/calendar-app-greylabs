@@ -8,9 +8,8 @@ import Header from "./components/Header";
 import "./App.css";
 
 const App = () => {
-  const [themeMode, setThemeMode] = useState("light"); // Manage theme state here
+  const [themeMode, setThemeMode] = useState("light");
 
-  // Effect to apply the theme to the body
   useEffect(() => {
     document.body.className = themeMode;
   }, [themeMode]);
@@ -22,11 +21,11 @@ const App = () => {
   return (
     <EventProvider>
       <Router>
-        {/* Pass the theme and toggle function to the Header */}
+        {}
         <Header themeMode={themeMode} onToggleTheme={toggleTheme} />
         <div className={themeMode}>
           {" "}
-          {/* Add the theme class to the container */}
+          {}
           <Routes>
             <Route path="/" element={<Calendar themeMode={themeMode} />} />
             <Route

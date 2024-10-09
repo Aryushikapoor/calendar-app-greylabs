@@ -9,6 +9,7 @@ const Form = styled.form`
 
 const Label = styled.label`
   margin: 10px 0 5px;
+  color: black;
 `;
 
 const Input = styled.input`
@@ -39,7 +40,7 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const EventForm = ({ selectedDate, onClose, existingEvent }) => {
+const EventForm = ({ selectedDate, onClose, existingEvent, themeMode }) => {
   const { addEvent, editEvent } = useEvents();
 
   const [title, setTitle] = useState(existingEvent ? existingEvent.title : "");
@@ -57,7 +58,6 @@ const EventForm = ({ selectedDate, onClose, existingEvent }) => {
   );
 
   useEffect(() => {
-    // Set the date from selectedDate if it's provided
     if (selectedDate) {
       const localDate = new Date(selectedDate);
       const utcDate = new Date(
@@ -66,7 +66,6 @@ const EventForm = ({ selectedDate, onClose, existingEvent }) => {
       const formattedDate = utcDate.toISOString().split("T")[0];
       setDate(formattedDate);
     } else {
-      // Set date to today if no date is provided
       const today = new Date();
       const formattedDate = today.toISOString().split("T")[0];
       setDate(formattedDate);
@@ -74,13 +73,12 @@ const EventForm = ({ selectedDate, onClose, existingEvent }) => {
   }, [selectedDate]);
 
   useEffect(() => {
-    // Set the current system time if no existing event is provided
     if (!existingEvent) {
       const now = new Date();
       const currentHour = now.getHours();
       const currentMinute = now.getMinutes();
 
-      setHour(currentHour % 12 === 0 ? 12 : currentHour % 12); // convert to 12-hour format
+      setHour(currentHour % 12 === 0 ? 12 : currentHour % 12);
       setMinute(currentMinute.toString().padStart(2, "0"));
       setAmpm(currentHour >= 12 ? "PM" : "AM");
     }
@@ -88,7 +86,7 @@ const EventForm = ({ selectedDate, onClose, existingEvent }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Convert time to 24-hour format
+
     let formattedHour = parseInt(hour);
     if (ampm === "PM" && formattedHour !== 12) {
       formattedHour += 12;
@@ -108,10 +106,10 @@ const EventForm = ({ selectedDate, onClose, existingEvent }) => {
     };
 
     if (existingEvent) {
-      editEvent(existingEvent.id, event); // Edit existing event
+      editEvent(existingEvent.id, event);
       console.log("Event edited: ", event);
     } else {
-      addEvent(event); // Add new event
+      addEvent(event);
       console.log("Event added: ", event);
     }
     onClose();

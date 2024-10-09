@@ -12,6 +12,11 @@ const DetailsContainer = styled.div`
   border: 1px solid #ccc;
   border-radius: 10px;
   background-color: #fff;
+
+  h2,
+  p {
+    color: black; /* Set header and paragraph text to black */
+  }
 `;
 
 const Button = styled.button`
@@ -19,7 +24,7 @@ const Button = styled.button`
   margin-right: 10px;
   border: none;
   background-color: #007bff;
-  color: white;
+  color: white; /* Keep button text color white */
   cursor: pointer;
   border-radius: 4px;
 
@@ -35,6 +40,7 @@ const EventList = styled.div`
 
   h3 {
     margin-bottom: 10px;
+    color: black; /* Set section header color to black */
   }
 `;
 
@@ -44,6 +50,11 @@ const EventItem = styled.div`
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
+
+  h4,
+  p {
+    color: black; /* Set item title and description color to black */
+  }
 `;
 
 const EventDetails = () => {
@@ -51,33 +62,31 @@ const EventDetails = () => {
   const { events, deleteEvent } = useEvents();
   const navigate = useNavigate();
   const [showEditModal, setShowEditModal] = useState(false);
-  const [currentEvent, setCurrentEvent] = useState(null); // To track the event being edited
+  const [currentEvent, setCurrentEvent] = useState(null);
 
   const event = events.find((event) => event.id === parseInt(id));
 
   if (!event) {
-    return <p>Event not found!</p>;
+    return <p style={{ color: "black" }}>Event not found!</p>; // Set color to black for not found message
   }
 
-  // Get the date of the selected event
   const selectedDate = new Date(event.date).toDateString();
 
-  // Filter events that match the selected date, excluding the main event
   const eventsForTheDay = events.filter((evt) => {
     const eventDate = new Date(evt.date).toDateString();
-    return eventDate === selectedDate && evt.id !== event.id; // Exclude the main event
+    return eventDate === selectedDate && evt.id !== event.id;
   });
 
   const handleDelete = (eventId) => {
     deleteEvent(eventId);
     if (eventId === event.id) {
-      navigate("/"); // Navigate back to home after deleting if the main event is deleted
+      navigate("/");
     }
   };
 
   const handleEditClick = (evt) => {
-    setCurrentEvent(evt); // Set the current event to be edited
-    setShowEditModal(true); // Show the edit modal
+    setCurrentEvent(evt);
+    setShowEditModal(true);
   };
 
   return (
@@ -103,7 +112,7 @@ const EventDetails = () => {
             existingEvent={currentEvent}
             onClose={() => {
               setShowEditModal(false);
-              setCurrentEvent(null); // Clear the current event after closing the modal
+              setCurrentEvent(null);
             }}
           />
         </Modal>

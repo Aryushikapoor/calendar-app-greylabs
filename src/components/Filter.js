@@ -15,9 +15,6 @@ const Filter = () => {
 
     const handleFilterChange = (e) => {
         setCategory(e.target.value);
-        // Implement filtering logic based on category
-        // Since we're using a mock API, filtering can be done client-side
-        // Alternatively, set up different endpoints in Beeceptor for categories
     };
 
     return (

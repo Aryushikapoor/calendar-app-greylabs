@@ -1,4 +1,3 @@
-// src/components/Header.js
 import React from "react";
 import styled from "styled-components";
 import { ReactComponent as SunIcon } from "../assets/headers/sun.svg";
