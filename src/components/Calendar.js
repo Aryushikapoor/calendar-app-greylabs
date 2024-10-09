@@ -146,7 +146,7 @@ const Day = styled.div`
     props.hasEvent &&
     `
  
-      color: white;
+      color: black;
     `}
 `;
 
