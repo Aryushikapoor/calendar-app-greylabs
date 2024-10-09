@@ -6,6 +6,7 @@ import Modal from "./Modal";
 import EventForm from "./EventForm";
 import AddIcon from "@mui/icons-material/Add";
 import Fab from "@mui/material/Fab";
+import Loader from "./Loader";
 
 const CalendarContainer = styled.div`
   max-width: 1000px;
@@ -331,15 +332,21 @@ const Calendar = ({ themeMode }) => {
           <option value="Personal">Personal</option>
           <option value="Others">Others</option>
         </select>
-
         <Button className="button" onClick={nextMonth}>
           Next
         </Button>
       </Header>
-      <Grid>{generateCalendar()}</Grid>
+
+      {loading ? (
+        <Loader /> // Show loader when fetching data
+      ) : (
+        <Grid>{generateCalendar()}</Grid> // Show calendar when not loading
+      )}
+
       <FloatingButton onClick={() => setShowModal(true)}>
         <AddIcon />
       </FloatingButton>
+
       {showModal && (
         <Modal onClose={closeModal}>
           <EventForm
