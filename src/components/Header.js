@@ -46,7 +46,7 @@ const Title = styled.h1`
 const Header = ({ themeMode, onToggleTheme }) => {
   return (
     <HeaderContainer themeMode={themeMode}>
-      <Title>Calendar</Title>
+      <Title>My Calendar</Title>
       <div style={{ width: "40px" }} />{" "}
       {/* Empty div to maintain spacing for the icon */}
       <IconButton onClick={onToggleTheme}>

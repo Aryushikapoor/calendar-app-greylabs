@@ -7,7 +7,7 @@ export const EventProvider = ({ children }) => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const baseURL = "https://calendar-app-greylabs.free.beeceptor.com"; // Your Beeceptor base URL
+  // const baseURL = "https://calendar-app-greylabs.free.beeceptor.com"; 
 
   const saveEventsToLocalStorage = (events) => {
     localStorage.setItem("events", JSON.stringify(events));
@@ -16,18 +16,18 @@ export const EventProvider = ({ children }) => {
   const fetchEvents = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${baseURL}/events`);
-      const beeceptorEvents = response.data;
+      // const response = await axios.get(`${baseURL}/events`);
+      // const beeceptorEvents = response.data;
 
-      console.log("Fetched events from API:", beeceptorEvents);
+      // console.log("Fetched events from API:", beeceptorEvents);
 
       const storedEvents = localStorage.getItem("events");
       const existingEvents = storedEvents ? JSON.parse(storedEvents) : [];
 
-      const allEvents = [...existingEvents, ...beeceptorEvents];
+      // const allEvents = [...existingEvents, ...beeceptorEvents];
 
       const uniqueEvents = Array.from(
-        new Map(allEvents.map((event) => [event.id, event])).values()
+        new Map(existingEvents.map((event) => [event.id, event])).values()
       );
 
       setEvents(uniqueEvents);
@@ -44,7 +44,7 @@ export const EventProvider = ({ children }) => {
 
   const addEvent = async (event) => {
     try {
-      const response = await axios.post(`${baseURL}/events`, event);
+      // const response = await axios.post(`${baseURL}/events`, event);
 
       const newEvent = { ...event, id: Date.now() };
       setEvents((prevEvents) => {
@@ -60,8 +60,8 @@ export const EventProvider = ({ children }) => {
 
   const editEvent = async (id, updatedEvent) => {
     try {
-      const response = await axios.put(`${baseURL}/events/${id}`, updatedEvent);
-      const modifiedEvent = response.data;
+      // const response = await axios.put(`${baseURL}/events/${id}`, updatedEvent);
+      // const modifiedEvent = response.data;
       setEvents((prevEvents) => {
         const updatedEvents = prevEvents.map((event) =>
           event.id === id ? { ...event, ...updatedEvent } : event
@@ -77,7 +77,7 @@ export const EventProvider = ({ children }) => {
 
   const deleteEvent = async (id) => {
     try {
-      await axios.delete(`${baseURL}/events/${id}`);
+      // await axios.delete(`${baseURL}/events/${id}`);
       setEvents((prevEvents) => {
         const updatedEvents = prevEvents.filter((event) => event.id !== id);
         saveEventsToLocalStorage(updatedEvents);

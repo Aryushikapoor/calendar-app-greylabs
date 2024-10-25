@@ -1,33 +1,37 @@
 // Loader.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import Lottie from 'react-lottie-player'; // Import from react-lottie-player
 
 const LoaderContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 100vh;
+  background-color: #f8f8f8;
 `;
 
 const Loader = () => {
+  const [animationData, setAnimationData] = useState(null);
+
+  // Load the animation JSON
+  useEffect(() => {
+    fetch('https://lottie.host/9422c6dc-7262-4ebf-80df-20af8641baa2/yz5R4LFwg8.json')
+      .then((response) => response.json())
+      .then((data) => setAnimationData(data))
+      .catch((error) => console.error('Error loading animation:', error));
+  }, []);
+
+  if (!animationData) return <div>Loading...</div>; // Fallback text during fetch
+
   return (
     <LoaderContainer>
-      <div className="spinner"></div>
-      <style jsx>{`
-        .spinner {
-          width: 40px;
-          height: 40px;
-          border: 6px solid #f3f3f3; /* Light grey */
-          border-top: 6px solid #3498db; /* Blue */
-          border-radius: 50%;
-          animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-      `}</style>
+      <Lottie
+        loop
+        play
+        animationData={animationData}
+        style={{ width: 500, height: 500 }}
+      />
     </LoaderContainer>
   );
 };

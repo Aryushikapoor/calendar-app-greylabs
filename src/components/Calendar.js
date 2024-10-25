@@ -12,7 +12,7 @@ const CalendarContainer = styled.div`
   max-width: 1000px;
   margin: 20px auto;
   padding: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid #afafaf;
   border-radius: 10px;
   background-color: ${({ themeMode }) =>
     themeMode === "dark" ? "#333" : "#fff"};
@@ -35,9 +35,10 @@ const FloatingButton = styled(Fab)`
   position: fixed;
   top: 5px;
   left: 5px;
-  background-color: #ffff00 !important;
+  
+  background-color: #f17afd !important;
   &:hover {
-    background-color: #ffcc00 !important;
+    background-color: #af50ba !important;
   }
 `;
 
@@ -62,6 +63,7 @@ const Header = styled.div`
     border-radius: 4px;
     border: 1px solid #ccc;
     cursor: pointer;
+    font-size: 18px;
 
     @media (max-width: 500px) {
       font-size: 0.8rem;
@@ -82,16 +84,17 @@ const Button = styled.button`
   padding: 8px 12px;
   margin: 5px;
   border: none;
-  border: 1px solid #ffd700;
-  background-color: #ffff00;
+  border: 1px solid #4f0258;
+  background-color: #f17afd;
   color: black;
   border-radius: 4px;
+  font-size: 18px;
 
   cursor: pointer;
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: #ffcc00;
+    background-color: #af50ba;
   }
 `;
 
