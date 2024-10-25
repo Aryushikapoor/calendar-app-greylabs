@@ -63,7 +63,7 @@ const Header = styled.div`
     border-radius: 4px;
     border: 1px solid #ccc;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 14px;
 
     @media (max-width: 500px) {
       font-size: 0.8rem;
@@ -88,7 +88,8 @@ const Button = styled.button`
   background-color: #f17afd;
   color: black;
   border-radius: 4px;
-  font-size: 18px;
+  font-size: 16px;
+  font-family:Outfit;
 
   cursor: pointer;
   transition: background-color 0.3s;

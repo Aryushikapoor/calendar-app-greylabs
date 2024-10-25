@@ -22,7 +22,7 @@ const Loader = () => {
       .catch((error) => console.error('Error loading animation:', error));
   }, []);
 
-  if (!animationData) return <div>Loading...</div>; // Fallback text during fetch
+  if (!animationData) return <div></div>; // Fallback text during fetch
 
   return (
     <LoaderContainer>
